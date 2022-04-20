@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="container">
+    <div class="jumbotron mt-3"> 
+        <h1 class="display-3">Bienvenue sur DIOCESE IHOSY</h1>
+        <p class="lead">Nous ésperons que vous aurez atiree des profit de connaître l'activité de Diosezy d'Ihosy en visitant cette site </p>
+        <hr class="my-4">
+        <p>Veuillez cliquer céci pour savoir plus en sur le détail </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg">En savoir plus! </a>
+        </p>
+    </div> 
+    <h2>Tous les évenements diocesiéne </h2>
+    <div class="row mt-5">
+        {% for ad in ads %}
+            {% set url =path('ad_show',{'slug':ad.slug}) %}
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-header text-center">{{ad.title}}</div>
+                <a href="{{url}}">
+                    <img src="/img/{{ad.coverImage}}" alt="Image d'activité"/>
+                </a>
+                <div class="card-body">
+                    <h4 class="card-title">{{ad.Introduction}}</h4>
+                    <p class="card-text"> content</p>
+                    <a href="{{url}}" class="btn btn-secondary">En savoir plus</a>
+                </div>
+            </div>    
+        </div>
+        {% endfor %}
+    </div>
+    <h2 class="h1 mt-3 mb-4"></h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-secondary mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Titre ato</h4>
+                    <div class="card-text">
+                        <img src="img/RHMM 067.jpg" alt="Avatar" class="float-left mr-3">
+                        <p>Menomenonana Menomenonana Menomenonana Menomenonana Menomenonana</p>
+                        <a href="#" class="btn btn-success float-right">En savoir plus!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card border-secondary mb-3">
+                <div class="card-body">
+                    <h4 class="card-title">Titre ato</h4>
+                    <div class="card-text">
+                        <img src="img/RHMM 029.jpg" alt="Avatar" class="float-left mr-3">
+                        <p>Menomenonana Menomenonana Menomenonana Menomenonana Menomenonana</p>
+                        <a href="#" class="btn btn-success float-right">En savoir plus!</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
