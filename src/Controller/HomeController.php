@@ -2,8 +2,12 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Form\AdType;
+use App\Entity\Image;
+use App\Form\ImageType;
 use App\Repository\AdRepository;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -55,10 +59,38 @@ class HomeController extends AbstractController{
      *@Route("/Evenement/Nouveau")
      *@Route("/Evenement/nouveau")
      */
-    public function ajout()
+    public function ajout(Request $rqt)
     {
-        $nouveau = new Ad();
-        return $this->render('new_event.html.twig');    
+        $event = new Ad();
+        $image = new Image();
+        // $image->setphoto("photo image")
+        //       ->setcaption("Légende image");
+        $form = $this->createForm(AdType::class,$event);
+        $form->handleRequest($rqt);
+        if($form->isSubmitted()&& $form->isValid()){
+            // foreach($event->getImages() as $image)
+            // {
+            //     $image->setAd($event);
+            //     $mng = $this -> getDoctrine()->getManager();
+            //     $mng -> persist($image);
+            //     $mng -> flush();
+            // }
+            $mng = $this -> getDoctrine()->getManager();
+            $mng -> persist($event);            
+            $mng -> flush();
+            $this->addFlash
+                    (
+                        "success",
+                        "L'évenement <strong> {$event->gettitle()}</strong> qui se fait à <strong>  {$event->getlieu()} </strong> à été bien enregistré !"
+                    );
+        // return $this->redirectToRoute('ad_show',[
+        //     "slug"=>$event->getslug()
+        // ]);
+        return $this->redirectToRoute('ajout_event');
+        }
+         return $this->render('new_event.html.twig',[    
+                'form'=> $form->createView()
+            ]);
     }
     /**
      * Undocumented function

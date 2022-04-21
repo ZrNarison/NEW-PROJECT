@@ -20,6 +20,11 @@ class Image
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $photo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $caption;
 
     /**
@@ -33,6 +38,13 @@ class Image
         return $this->id;
     }
 
+    public function setPhoto(string $photo): self
+    {
+        $this->photo = $photo;
+
+        return $this;
+    }
+    
     public function getCaption(): ?string
     {
         return $this->caption;
@@ -56,4 +68,10 @@ class Image
 
         return $this;
     }
+
+    public function getPhoto(): ?string
+    {
+        return $this->photo;
+    }
+
 }
