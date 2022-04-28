@@ -62,19 +62,16 @@ class HomeController extends AbstractController{
     public function ajout(Request $rqt)
     {
         $event = new Ad();
-        $image = new Image();
-        // $image->setphoto("photo image")
-        //       ->setcaption("Légende image");
         $form = $this->createForm(AdType::class,$event);
         $form->handleRequest($rqt);
         if($form->isSubmitted()&& $form->isValid()){
-            // foreach($event->getImages() as $image)
-            // {
-            //     $image->setAd($event);
-            //     $mng = $this -> getDoctrine()->getManager();
-            //     $mng -> persist($image);
-            //     $mng -> flush();
-            // }
+            foreach($event->getImages() as $image)
+            {
+                $image->setAd($event);
+                $mng = $this -> getDoctrine()->getManager();
+                $mng -> persist($image);
+                $mng -> flush();
+            }
             $mng = $this -> getDoctrine()->getManager();
             $mng -> persist($event);            
             $mng -> flush();
